@@ -13,7 +13,7 @@ NODE;
 
 void AddNodeToLL(int Number, NODE **LinkedListHead)
 {
-	NODE *newNode = (NODE*)malloc(sizeof(NODE));
+	NODE *newNode = malloc(sizeof(NODE));
 	newNode->number = Number;
 	newNode->next_ptr = NULL;
 	NODE *temp = *LinkedListHead;
@@ -34,14 +34,19 @@ void ReadFileIntoLL(int argc,  char *argv[], NODE **LLH)
 	if(io == NULL)
 	{
 		printf("File Failed to Open Exiting...");
-		exit;
 	}
 	int num = 0;
+	int counter = 0;
+	int sum = 0;
 
-	while(fgets(num, sizeof(num), io) != NULL)//figure out what to use for integer because fgets is for chars
+	while(fscanf(io, "%d", &num) == 1)
 	{
 		AddNodeToLL(num, LLH);
+		counter++;
+		sum += num;
 	}
+	fclose(io);
+	printf("%d records were read for a total sum of %d\n", counter, sum);
 }
 
 void PrintLL(NODE *LLH) 

@@ -51,7 +51,7 @@ void ReadFileIntoLL(int argc,  char *argv[], NODE **LLH)
 		sum += Num;
 	}
 	fclose(io);
-	printf("%d records were read for a total sum of %d\n", counter, sum);
+	printf("%d records were read for a total sum of %d", counter, sum);
 }
 
 void PrintLL(NODE *LLH) 

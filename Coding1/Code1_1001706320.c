@@ -68,16 +68,21 @@ void FreeLL(NODE **LLH)
 { 
 	NODE *temp = *LLH;
 	NODE *nextNode;
+	int counter = 0;
+	int num = 0;
 
 	while(temp != NULL)
 	{
+		num += temp->number;
 		nextNode = temp->next_ptr;
 		free(temp);
 		temp = nextNode;
 		#ifdef PRINT
 			printf("Freeing %p %d %p\n", temp, temp->number, temp->next_ptr);
 		#endif
+		counter++;
 	}
+	printf("%d nodes were deleted for a total sum of %d", counter, num);
 }
 
 int main(int argc, char *argv[]) 

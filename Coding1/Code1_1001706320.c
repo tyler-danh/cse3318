@@ -35,7 +35,7 @@ void ReadFileIntoLL(int argc,  char *argv[], NODE **LLH)
 	FILE* io = fopen(argv[1], "r");
 	if(io == NULL)
 	{
-		printf("File Failed to Open Exiting...");
+		printf("File must be provided on command line... exiting");
 		exit(1);
 	}
 	char num[10];

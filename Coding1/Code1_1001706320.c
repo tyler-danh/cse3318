@@ -19,7 +19,7 @@ void AddNodeToLL(int Number, NODE **LinkedListHead)
 	NODE *temp = *LinkedListHead;
 
 	if(temp == NULL)
-		temp = newNode;
+		*LinkedListHead = newNode;
 	else
 	{
 		while(temp->next_ptr != NULL)
@@ -72,10 +72,10 @@ void FreeLL(NODE **LLH)
 	while(temp != NULL)
 	{
 		nextNode = temp->next_ptr;
-		temp = nextNode;
 		free(temp);
+		temp = nextNode;
 		#ifdef PRINT
-			printf("Freeing %p %d %p", temp, temp->number, temp->next_ptr);
+			printf("Freeing %p %d %p\n", temp, temp->number, temp->next_ptr);
 		#endif
 	}
 }
@@ -85,8 +85,8 @@ int main(int argc, char *argv[])
 	
 
 	NODE *LLH = NULL;
-	int start = 0;
-	int end = 0;
+	long int start = 0;
+	long int end = 0;
 	
 	/* capture the clock in a start time */
 	start = clock();

@@ -59,7 +59,7 @@ void PrintLL(NODE *LLH)
 	NODE *temp = LLH;
 	while(temp != NULL)
 	{
-		printf("%p, %d, %p", temp, temp->number, temp->next_ptr);
+		printf("%p, %d, %p\n", temp, temp->number, temp->next_ptr);
 		temp = temp->next_ptr;
 	}
 }

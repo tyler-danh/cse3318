@@ -18,13 +18,15 @@ void AddNodeToLL(int Number, NODE **LinkedListHead)
 	newNode->next_ptr = NULL;
 	NODE *temp = *LinkedListHead;
 
-	if(*LinkedListHead = NULL)
-		*LinkedListHead = newNode;
+	if(temp == NULL)
+		temp = newNode;
 	else
 	{
 		while(temp->next_ptr != NULL)
+		{
 			temp = temp->next_ptr;
-		temp = newNode;
+		}
+		temp->next_ptr = newNode;
 	}
 }
 
@@ -34,16 +36,19 @@ void ReadFileIntoLL(int argc,  char *argv[], NODE **LLH)
 	if(io == NULL)
 	{
 		printf("File Failed to Open Exiting...");
+		exit(1);
 	}
-	int num = 0;
+	char num[10];
+	int Num = 0;
 	int counter = 0;
 	int sum = 0;
 
-	while(fscanf(io, "%d", &num) == 1)
+	while(fgets(num, sizeof(num), io) != NULL)
 	{
-		AddNodeToLL(num, LLH);
+		Num = atoi(num);
+		AddNodeToLL(Num, LLH);
 		counter++;
-		sum += num;
+		sum += Num;
 	}
 	fclose(io);
 	printf("%d records were read for a total sum of %d\n", counter, sum);
@@ -52,7 +57,7 @@ void ReadFileIntoLL(int argc,  char *argv[], NODE **LLH)
 void PrintLL(NODE *LLH) 
 {
 	NODE *temp = LLH;
-	while(temp->next_ptr != NULL)
+	while(temp != NULL)
 	{
 		printf("%p, %d, %p", temp, temp->number, temp->next_ptr);
 		temp = temp->next_ptr;
@@ -64,11 +69,11 @@ void FreeLL(NODE **LLH)
 	NODE *temp = *LLH;
 	NODE *nextNode;
 
-	while(temp->next_ptr != NULL)
+	while(temp != NULL)
 	{
 		nextNode = temp->next_ptr;
-		free(temp);
 		temp = nextNode;
+		free(temp);
 		#ifdef PRINT
 			printf("Freeing %p %d %p", temp, temp->number, temp->next_ptr);
 		#endif

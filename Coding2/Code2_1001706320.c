@@ -30,7 +30,7 @@ int ReadFileIntoArray(int argc, char *argv[], int **Array)
 		exit(1);
 	}
 
-    char num[10] = NULL;
+    char num[10];
     int counter;
     int i = 0;
 
@@ -44,10 +44,11 @@ int ReadFileIntoArray(int argc, char *argv[], int **Array)
     
     while(fgets(num, sizeof(num), io) != NULL)
     {
-        (*Array)[i] = num;
+        (*Array)[i] = atoi(num);
         i++;
     }
 	fclose(io);
+    return counter;
 }
 
 void PrintArray(int ArrayToPrint[], int sizeAP)
@@ -56,17 +57,31 @@ void PrintArray(int ArrayToPrint[], int sizeAP)
 
     for(i = 0; i < sizeAP; i++)
     {
-        printf("%d", ArrayToPrint[i]);
+        printf("%d\n", ArrayToPrint[i]);
     }
+    printf("\n");
 }
 
 int main(int argc, char *argv[])
 {
     int *BigArray = NULL;
-    int elements = ReadFileIntoArray(argc, argv, BigArray);
+    //int TestArray[10] = {16, 1, 10, 4, 8, 9, 3, 12, 11, 0};
+    int elements = ReadFileIntoArray(argc, argv, &BigArray);
     clock_t start, end;
+
+    //PrintArray(TestArray, 10);
+    //InsertionSort(TestArray, 10);
+    //PrintArray(TestArray, 10);
 
     #ifdef PRINTARRAY
         PrintArray(BigArray, elements);
     #endif
+    start = clock();
+    InsertionSort(BigArray, elements);
+    end = clock();
+    #ifdef PRINTARRAY
+        PrintArray(BigArray, elements);
+    #endif
+    printf("%d records read\n", elements);
+    printf("Insertion Sort = %ld tics\n", end-start);
 }

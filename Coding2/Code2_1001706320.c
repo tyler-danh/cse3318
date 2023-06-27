@@ -26,7 +26,7 @@ int ReadFileIntoArray(int argc, char *argv[], int **Array)
     FILE* io = fopen(argv[1], "r");
 	if(io == NULL)
 	{
-		printf("File must be provided on command line... exiting");
+		printf("File must be provided on command line... exiting\n");
 		exit(1);
 	}
 
@@ -65,13 +65,8 @@ void PrintArray(int ArrayToPrint[], int sizeAP)
 int main(int argc, char *argv[])
 {
     int *BigArray = NULL;
-    //int TestArray[10] = {16, 1, 10, 4, 8, 9, 3, 12, 11, 0};
     int elements = ReadFileIntoArray(argc, argv, &BigArray);
     clock_t start, end;
-
-    //PrintArray(TestArray, 10);
-    //InsertionSort(TestArray, 10);
-    //PrintArray(TestArray, 10);
 
     #ifdef PRINTARRAY
         PrintArray(BigArray, elements);

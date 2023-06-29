@@ -1,3 +1,4 @@
+//Tyler Danh 1001706320
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

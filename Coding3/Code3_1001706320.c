@@ -28,7 +28,6 @@ void Merge(int arr[], int left, int middle, int right)
     int n1 = middle - left + 1;
     int n2 = right - middle;
     int L[n1], R[n2];
-
     for (i = 0; i < n1; i++)
         L[i] = arr[left + i];
     for (j = 0; j < n2; j++)
@@ -87,7 +86,7 @@ int ReadFileIntoArray(int argc, char *argv[], int **Array)
 	}
 
     char num[10];
-    int counter;
+    int counter = 0;
     int i = 0;
 
     while(fgets(num, sizeof(num), io) != NULL)
@@ -125,6 +124,21 @@ int main(int argc, char *argv[])
     clock_t start, end;
     int arr_size = sizeof(BigArray)/sizeof(BigArray[0]);
 
+   
+    #ifdef PRINTARRAY
+        PrintArray(BigArray, elements);
+    #endif
+    start = clock();
+    InsertionSort(BigArray, elements);
+    end = clock();
+    #ifdef PRINTARRAY
+        PrintArray(BigArray, elements);
+    #endif
+    printf("%d records read\n", elements);
+    printf("Insertion Sort = %ld tics\n\n", end-start);
+    free(BigArray);
+    
+    elements = ReadFileIntoArray(argc, argv, &BigArray);
     #ifdef PRINTARRAY
         PrintArray(BigArray, elements);
     #endif
@@ -138,19 +152,5 @@ int main(int argc, char *argv[])
     printf("Merge Sort = %ld tics\n", end-start);
 
     free(BigArray);
-    elements = ReadFileIntoArray(argc, argv, &BigArray);
 
-    #ifdef PRINTARRAY
-        PrintArray(BigArray, elements);
-    #endif
-    start = clock();
-    InsertionSort(BigArray, elements);
-    end = clock();
-    #ifdef PRINTARRAY
-        PrintArray(BigArray, elements);
-    #endif
-    printf("%d records read\n", elements);
-    printf("Insertion Sort = %ld tics\n", end-start);
-    free(BigArray);
-   
 }

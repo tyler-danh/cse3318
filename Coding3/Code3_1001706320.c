@@ -124,21 +124,6 @@ int main(int argc, char *argv[])
     clock_t start, end;
     int arr_size = sizeof(BigArray)/sizeof(BigArray[0]);
 
-   
-    #ifdef PRINTARRAY
-        PrintArray(BigArray, elements);
-    #endif
-    start = clock();
-    InsertionSort(BigArray, elements);
-    end = clock();
-    #ifdef PRINTARRAY
-        PrintArray(BigArray, elements);
-    #endif
-    printf("%d records read\n", elements);
-    printf("Insertion Sort = %ld tics\n\n", end-start);
-    free(BigArray);
-    
-    elements = ReadFileIntoArray(argc, argv, &BigArray);
     #ifdef PRINTARRAY
         PrintArray(BigArray, elements);
     #endif
@@ -149,7 +134,23 @@ int main(int argc, char *argv[])
         PrintArray(BigArray, elements);
     #endif
     printf("%d records read\n", elements);
-    printf("Merge Sort = %ld tics\n", end-start);
+    printf("Merge Sort = %ld tics\n\n", end-start);
+
+    free(BigArray);
+    
+    elements = ReadFileIntoArray(argc, argv, &BigArray);
+    
+    #ifdef PRINTARRAY
+        PrintArray(BigArray, elements);
+    #endif
+    start = clock();
+    InsertionSort(BigArray, elements);
+    end = clock();
+    #ifdef PRINTARRAY
+        PrintArray(BigArray, elements);
+    #endif
+    printf("%d records read\n", elements);
+    printf("Insertion Sort = %ld tics\n", end-start);
 
     free(BigArray);
 

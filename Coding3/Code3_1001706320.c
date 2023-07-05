@@ -4,6 +4,12 @@
 #include <time.h>
 #include <string.h>
 
+void InsertionSort();
+void Merge();
+void MergeSort();
+int ReadFileIntoArray();
+void PrintArray();
+
 void InsertionSort(int A[], int n)
 {
     int i, key, j = 0;
@@ -128,7 +134,7 @@ int main(int argc, char *argv[])
         PrintArray(BigArray, elements);
     #endif
     start = clock();
-    MergeSort(BigArray, 0, arr_size-1);
+    MergeSort(BigArray, 0, arr_size - 1);
     end = clock();
     #ifdef PRINTARRAY
         PrintArray(BigArray, elements);

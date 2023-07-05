@@ -128,13 +128,12 @@ int main(int argc, char *argv[])
     int *BigArray = NULL;
     int elements = ReadFileIntoArray(argc, argv, &BigArray);
     clock_t start, end;
-    int arr_size = sizeof(BigArray)/sizeof(BigArray[0]);
 
     #ifdef PRINTARRAY
         PrintArray(BigArray, elements);
     #endif
     start = clock();
-    MergeSort(BigArray, 0, arr_size - 1);
+    MergeSort(BigArray, 0, elements - 1);
     end = clock();
     #ifdef PRINTARRAY
         PrintArray(BigArray, elements);

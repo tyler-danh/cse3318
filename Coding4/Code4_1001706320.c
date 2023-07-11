@@ -10,6 +10,7 @@ int ReadFileIntoArray();
 void PrintArray();
 void QuickSort();
 int Partition();
+void swap();
 
 void QuickSort(int A[], int low, int high)
 {

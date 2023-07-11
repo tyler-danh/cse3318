@@ -4,82 +4,38 @@
 #include <time.h>
 #include <string.h>
 
-void InsertionSort();
-void Merge();
-void MergeSort();
+
+
 int ReadFileIntoArray();
 void PrintArray();
+void QuickSort();
+int Partition();
 
-void InsertionSort(int A[], int n)
+void QuickSort(int A[], int low, int high)
 {
-    int i, key, j = 0;
-
-    for(j = 1; j < n; j++)
+    if (low < high)
     {
-        key = A[j];
-        i=j-1;
-
-        while(i >= 0 && A[i] > key)
-        {
-            A[i+1] = A[i];
-            i=i-1;
-        }
-        A[i + 1] = key;
+        int ndx = partition(A, low, high);
+        QuickSort(A, low, ndx - 1);
+        QuickSort(A, ndx + 1, high);
     }
 }
 
-void Merge(int arr[], int left, int middle, int right)
+int Partition(int A[], int low, int high)
 {
-    int i, j, k;
-    int n1 = middle - left + 1;
-    int n2 = right - middle;
-    int L[n1], R[n2];
-    for (i = 0; i < n1; i++)
-        L[i] = arr[left + i];
-    for (j = 0; j < n2; j++)
-        R[j] = arr[middle + 1 + j];
-
-    i = 0;
-    j = 0;
-    k = left;
-    while (i < n1 && j < n2)
+    int i, j = 0;
+    int pivot = A[high];
+    i = (low - 1);
+    for (j = low; j < high; j++)
     {
-        if (L[i] <= R[j])
+        if (A[j] < pivot)
         {
-            arr[k] = L[i];
             i++;
+            swap(&A[i], &A[j]);
         }
-        else
-        {
-            arr[k] = R[j];
-            j++;
-        }
-        k++;
     }
-
-    while (i < n1)
-    {
-        arr[k] = L[i];
-        i++;
-        k++;
-    }
-    while (j < n2)
-    {
-        arr[k] = R[j];
-        j++;
-        k++;
-    }
-}
-
-void MergeSort(int A[], int left, int right)
-{
-    if(left < right)
-    {
-        int middle = (left+right)/2;
-        MergeSort(A, left, middle);
-        MergeSort(A, middle+1, right);
-        Merge(A, left, middle, right);
-    }
+    swap(&A[i + 1], &A[high]);
+    return (i + 1);
 }
 
 int ReadFileIntoArray(int argc, char *argv[], int **Array)
@@ -133,7 +89,7 @@ int main(int argc, char *argv[])
         PrintArray(BigArray, elements);
     #endif
     start = clock();
-    MergeSort(BigArray, 0, elements - 1);
+    QuickSort(BigArray, 0, elements-1);
     end = clock();
     #ifdef PRINTARRAY
         PrintArray(BigArray, elements);
@@ -142,21 +98,4 @@ int main(int argc, char *argv[])
     printf("Merge Sort = %ld tics\n\n", end-start);
 
     free(BigArray);
-    
-    elements = ReadFileIntoArray(argc, argv, &BigArray);
-    
-    #ifdef PRINTARRAY
-        PrintArray(BigArray, elements);
-    #endif
-    start = clock();
-    InsertionSort(BigArray, elements);
-    end = clock();
-    #ifdef PRINTARRAY
-        PrintArray(BigArray, elements);
-    #endif
-    printf("%d records read\n", elements);
-    printf("Insertion Sort = %ld tics\n", end-start);
-
-    free(BigArray);
-
 }

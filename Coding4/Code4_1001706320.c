@@ -15,7 +15,7 @@ void QuickSort(int A[], int low, int high)
 {
     if (low < high)
     {
-        int ndx = partition(A, low, high);
+        int ndx = Partition(A, low, high);
         QuickSort(A, low, ndx - 1);
         QuickSort(A, ndx + 1, high);
     }
@@ -37,6 +37,14 @@ int Partition(int A[], int low, int high)
     swap(&A[i + 1], &A[high]);
     return (i + 1);
 }
+
+void swap(int *SwapA, int *SwapB)
+{
+    int temp = *SwapA;
+    *SwapA = *SwapB;
+    *SwapB = temp;
+}
+
 
 int ReadFileIntoArray(int argc, char *argv[], int **Array)
 {

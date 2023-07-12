@@ -4,8 +4,6 @@
 #include <time.h>
 #include <string.h>
 
-
-
 int ReadFileIntoArray();
 void PrintArray();
 void QuickSort();
@@ -45,7 +43,6 @@ void swap(int *SwapA, int *SwapB)
     *SwapA = *SwapB;
     *SwapB = temp;
 }
-
 
 int ReadFileIntoArray(int argc, char *argv[], int **Array)
 {
@@ -104,7 +101,7 @@ int main(int argc, char *argv[])
         PrintArray(BigArray, elements);
     #endif
     printf("%d records read\n", elements);
-    printf("Merge Sort = %ld tics\n\n", end-start);
+    printf("Quick Sort = %ld tics\n\n", end-start);
 
     free(BigArray);
 }

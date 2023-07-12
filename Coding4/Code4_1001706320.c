@@ -88,20 +88,42 @@ void PrintArray(int ArrayToPrint[], int sizeAP)
 int main(int argc, char *argv[])
 {
     int *BigArray = NULL;
-    int elements = ReadFileIntoArray(argc, argv, &BigArray);
     clock_t start, end;
+    int elements, counter = 0;
+    long sum = 0;
 
-    #ifdef PRINTARRAY
-        PrintArray(BigArray, elements);
-    #endif
-    start = clock();
-    QuickSort(BigArray, 0, elements-1);
-    end = clock();
-    #ifdef PRINTARRAY
-        PrintArray(BigArray, elements);
-    #endif
-    printf("%d records read\n", elements);
-    printf("Quick Sort = %ld tics\n\n", end-start);
+    if(argv[2] == NULL)
+    {
+        printf("Number of runs not specified on command line... defaulting to 10\n");
+        counter = 10;
+        elements = ReadFileIntoArray(argc, argv, &BigArray);
+    }
+    else
+    {
+        counter = atoi(argv[2]);
+        elements = ReadFileIntoArray(argc, argv, &BigArray);
+    }    
 
-    free(BigArray);
+    for(int i = 0; i < counter; i++)
+    {
+        elements = ReadFileIntoArray(argc, argv, &BigArray);
+        #ifdef PRINTARRAY
+            PrintArray(BigArray, elements);
+        #endif
+        start = clock();
+        QuickSort(BigArray, 0, elements-1);
+        end = clock();
+        #ifdef PRINTARRAY
+            PrintArray(BigArray, elements);
+        #endif
+        
+        printf("Run %d complete: %ld tics\n", i+1, end-start);
+        sum += (end-start);
+        free(BigArray);
+    }
+    
+    printf("Average run time for %d runs: %ld\n", counter, (long)(sum/counter));
+    elements = ReadFileIntoArray(argc, argv, &BigArray);
+    printf("%d records processed\n", elements);
+    
 }

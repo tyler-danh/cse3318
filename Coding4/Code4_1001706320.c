@@ -23,7 +23,14 @@ void QuickSort(int A[], int low, int high)
 int Partition(int A[], int low, int high)
 {
     int i, j = 0;
-    int pivot = A[high];
+    #if QSM
+        int middle = (high+low)/2;
+        swap(&A[middle], &A[high]);
+    #elif QSRND
+        int random = (rand() % (high-low+1)) + low;
+        swap(&A[random], &A[high]);
+    #endif
+        int pivot = A[high];
     i = (low - 1);
     for (j = low; j < high; j++)
     {
@@ -89,22 +96,20 @@ int main(int argc, char *argv[])
 {
     int *BigArray = NULL;
     clock_t start, end;
-    int elements, counter = 0;
+    int elements, counter, i = 0;
     long sum = 0;
 
-    if(argv[2] == NULL)
+    if(argv[2] != NULL)
     {
-        printf("Number of runs not specified on command line... defaulting to 10\n");
-        counter = 10;
-        elements = ReadFileIntoArray(argc, argv, &BigArray);
+        counter = atoi(argv[2]);
     }
     else
     {
-        counter = atoi(argv[2]);
-        elements = ReadFileIntoArray(argc, argv, &BigArray);
+        printf("Number of runs not specified on command line... defaulting to 10\n");
+        counter = 10;
     }    
-
-    for(int i = 0; i < counter; i++)
+    elements = ReadFileIntoArray(argc, argv, &BigArray);
+    for(i = 0; i < counter; i++)
     {
         elements = ReadFileIntoArray(argc, argv, &BigArray);
         #ifdef PRINTARRAY

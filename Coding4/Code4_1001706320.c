@@ -99,14 +99,15 @@ int main(int argc, char *argv[])
     int elements, counter, i = 0;
     long sum = 0;
 
-    if(argv[2] != NULL)
+    if(argc < 3)
     {
-        counter = atoi(argv[2]);
+       
+        printf("Number of runs not specified on command line... defaulting to 10\n");
+        counter = 10;
     }
     else
     {
-        printf("Number of runs not specified on command line... defaulting to 10\n");
-        counter = 10;
+        counter = atoi(argv[2]);   
     }    
     elements = ReadFileIntoArray(argc, argv, &BigArray);
     for(i = 0; i < counter; i++)

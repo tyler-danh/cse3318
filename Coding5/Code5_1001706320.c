@@ -3,12 +3,38 @@
 #include <string.h>
 #define MAX 5
 
-void CreateAdjacencyMatrix(int AdjMatrix[][MAX])
+typedef struct
+{
+	char label[6];
+	int distance;
+	int previous;
+	int visited;
+}
+Vertex;
+
+void addVertex(char *argv[], Vertex *VertexArray[], int *VertexCount)
+{
+	char label;
+	FILE *IO = fopen(argv[1], "r+");
+	if(IO == NULL)
+		exit(0);
+	for(int i = 0; i < MAX; i++)
+	{
+		//strtok here
+	}
+	Vertex *NewVertex = malloc(sizeof(Vertex));
+	NewVertex->label = label;
+	NewVertex->visited = 0;
+	VertexArray[(*VertexCount)++] = NewVertex;
+}
+
+
+void CreateAdjacencyMatrix(char *argv[], int AdjMatrix[][MAX])
 {
 	int start = 0, end = 0;
 	int i = 0, j = 0;
 	char buffer[100] = {};
-	FILE *FH = fopen("EdgeList.txt", "r+");
+	FILE *FH = fopen(argv[1], "r+");
 	if (FH == NULL)
 		exit(0);
 	/* initialize adjacency matrix to -1 */
@@ -19,12 +45,14 @@ void CreateAdjacencyMatrix(int AdjMatrix[][MAX])
 	{
 		sscanf(buffer, "%d %d", &start, &end); //this will need fixing when slides come out
 		AdjMatrix[start][end] = 1;
-		//figure out how to read the entire line, these are for ints, we will be using strtok()
+		//this is a dumpster fire, figure out how to make adjacency matrix
 	}
 	fclose(FH);
 }
 
 int main(int argc, char *argv[])
 {
-	int AdjMatrix[MAX][MAX]; //maybe this wont be an array of int?
+	int AdjMatrix[MAX][MAX]; 
+	int VertexCount = 0;
+	Vertex *VertexArray[MAX];
 }

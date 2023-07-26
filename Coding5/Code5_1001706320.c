@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #define MAX 5
 
 typedef struct
@@ -15,17 +16,21 @@ Vertex;
 void addVertex(char *argv[], Vertex *VertexArray[], int *VertexCount)
 {
 	char label;
+	char *Token = NULL;
+	char Buffer[MAX] = {};
 	FILE *IO = fopen(argv[1], "r+");
+	Vertex *NewVertex = malloc(sizeof(Vertex));
 	if(IO == NULL)
 		exit(0);
 	for(int i = 0; i < MAX; i++)
 	{
-		//strtok here
+		fgets(Buffer, sizeof(Buffer), IO);
+		Token = strtok(Buffer, ",");
+		strcpy(NewVertex->label, Token);
+		NewVertex->visited = 0;
+		VertexArray[(*VertexCount)++] = NewVertex;
 	}
-	Vertex *NewVertex = malloc(sizeof(Vertex));
-	NewVertex->label = label;
-	NewVertex->visited = 0;
-	VertexArray[(*VertexCount)++] = NewVertex;
+	fclose(IO);
 }
 
 
@@ -50,9 +55,16 @@ void CreateAdjacencyMatrix(char *argv[], int AdjMatrix[][MAX])
 	fclose(FH);
 }
 
+void Dijkstra(int StartVertex, Vertex *VertexArray)
+{
+
+}
+
 int main(int argc, char *argv[])
 {
-	int AdjMatrix[MAX][MAX]; 
+	int AdjMatrix[MAX][MAX];
 	int VertexCount = 0;
 	Vertex *VertexArray[MAX];
+
+	addVertex(argv, VertexArray, &VertexCount);
 }

@@ -24,15 +24,16 @@ void addVertex(char *argv[], Vertex *VertexArray[], int *VertexCount)
 		exit(0);
 	while(fgets(Buffer, sizeof(Buffer), IO) != NULL)
 	{
-		//int i = 0;
+		int i = 0;
 		
 		Token = strtok(Buffer, ",");
 		strcpy(NewVertex->label, Token);
 		NewVertex->visited = 0;
 		VertexArray[(*VertexCount)++] = NewVertex;
 		
-		//printf("%s", VertexArray[i]->label);
+		printf("%s\n", VertexArray[i++]->label);
 	}
+	printf("%d", VertexCount);
 	fclose(IO);
 }
 
@@ -68,6 +69,7 @@ int main(int argc, char *argv[])
 	int AdjMatrix[MAX][MAX];
 	int VertexCount = 0;
 	Vertex *VertexArray[MAX];
+	printf("%d", VertexCount);
 
 	addVertex(argv, VertexArray, &VertexCount);
 }

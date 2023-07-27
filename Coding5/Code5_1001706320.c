@@ -13,53 +13,60 @@ typedef struct
 }
 Vertex;
 
-void addVertex(char *argv[], Vertex *VertexArray[], int *VertexCount)
+void addVertex(char *label, Vertex *VertexArray[], int *VertexCount)
 {
-	char label;
+	Vertex *NewVertex = malloc(sizeof(Vertex));
+	strcpy(NewVertex->label, label);
+	NewVertex->visited = 0;
+	VertexArray[(*VertexCount)++] = NewVertex;
+}
+
+void addEdge(int start, int end, int weight, int AdjMatrix[][MAX])
+{
+	AdjMatrix[start][end] = weight;
+}
+
+
+void readFile(char *argv[], Vertex *VertexArray[], int *VertexCount, int AdjMatrix[][MAX])
+{
 	char *Token = NULL;
 	char Buffer[100] = {};
+	int node,weight = 0;
 	FILE *IO = fopen(argv[1], "r+");
-	Vertex *NewVertex = malloc(sizeof(Vertex));
 	if(IO == NULL)
 		exit(0);
 	while(fgets(Buffer, sizeof(Buffer), IO) != NULL)
 	{
-		int i = 0;
-		
+		//int i = 0;
 		Token = strtok(Buffer, ",");
-		strcpy(NewVertex->label, Token);
-		NewVertex->visited = 0;
-		VertexArray[(*VertexCount)++] = NewVertex;
+		addVertex(Token, VertexArray, VertexCount);
+		while(Token != NULL)
+		{
+			Token = (NULL, ",");
+			node = atoi(Token);
+			Token = (NULL, ",");
+			weight = atoi(Token);
+
+			addEdge((*VertexCount)-1, node, weight, AdjMatrix);
+		}
 		
-		printf("%s\n", VertexArray[i++]->label);
+		//printf("%s\n", VertexArray[i++]->label);
 	}
-	printf("%d", VertexCount);
 	fclose(IO);
 }
 
-
-void CreateAdjacencyMatrix(char *argv[], int AdjMatrix[][MAX])
+void CreateAdjacencyMatrix(int AdjMatrix[][MAX])
 {
 	int start = 0, end = 0;
 	int i = 0, j = 0;
 	char buffer[100] = {};
-	FILE *FH = fopen(argv[1], "r+");
-	if (FH == NULL)
-		exit(0);
 	/* initialize adjacency matrix to -1 */
 	for(i = 0; i < MAX; i++)
 		for(j = 0; j < MAX; j++)
 			AdjMatrix[i][j] = -1;
-	while (fgets(buffer, sizeof(buffer)-1, FH))
-	{
-		sscanf(buffer, "%d %d", &start, &end); //this will need fixing when slides come out
-		AdjMatrix[start][end] = 1;
-		//this is a dumpster fire, figure out how to make adjacency matrix
-	}
-	fclose(FH);
 }
 
-void Dijkstra(int StartVertex, Vertex *VertexArray)
+void Dijkstra(int StartVertex, Vertex *VertexArray, int AdjMatrix[][MAX])
 {
 
 }
@@ -69,7 +76,16 @@ int main(int argc, char *argv[])
 	int AdjMatrix[MAX][MAX];
 	int VertexCount = 0;
 	Vertex *VertexArray[MAX];
-	printf("%d", VertexCount);
 
-	addVertex(argv, VertexArray, &VertexCount);
+	CreateAdjacencyMatrix(AdjMatrix);
+	readFile(argv, VertexArray, &VertexCount, AdjMatrix);
+
+	#ifdef PRINTIT
+	for(int i = 0; i < VertexCount; i++)
+	{
+		for(int j = 0; j < VertexCount; j++)
+			printf("%5d\t", AdjMatrix[i][j]);
+		printf("\n");
+	}
+	#endif
 }

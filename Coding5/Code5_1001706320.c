@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-#define MAX 5
+#define MAX 6
 
 typedef struct
 {
@@ -17,7 +17,7 @@ void addVertex(char *argv[], Vertex *VertexArray[], int *VertexCount)
 {
 	char label;
 	char *Token = NULL;
-	char Buffer[MAX] = {};
+	char Buffer[100] = {};
 	FILE *IO = fopen(argv[1], "r+");
 	Vertex *NewVertex = malloc(sizeof(Vertex));
 	if(IO == NULL)

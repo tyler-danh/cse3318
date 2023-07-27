@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-#define MAX 6
+#define MAX 50
 
 typedef struct
 {
@@ -22,13 +22,16 @@ void addVertex(char *argv[], Vertex *VertexArray[], int *VertexCount)
 	Vertex *NewVertex = malloc(sizeof(Vertex));
 	if(IO == NULL)
 		exit(0);
-	for(int i = 0; i < MAX; i++)
+	while(fgets(Buffer, sizeof(Buffer), IO) != NULL)
 	{
-		fgets(Buffer, sizeof(Buffer), IO);
+		//int i = 0;
+		
 		Token = strtok(Buffer, ",");
 		strcpy(NewVertex->label, Token);
 		NewVertex->visited = 0;
 		VertexArray[(*VertexCount)++] = NewVertex;
+		
+		//printf("%s", VertexArray[i]->label);
 	}
 	fclose(IO);
 }

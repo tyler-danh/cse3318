@@ -109,7 +109,7 @@ void Dijkstra(int StartVertex, Vertex *VertexArray[], int AdjMatrix[][MAX], int 
 int main(int argc, char *argv[])
 {
 	int AdjMatrix[MAX][MAX];
-	int VertexCount,startIndex,endIndex = 0;
+	int VertexCount,startIndex,endIndex,i,j = 0;
 	Vertex *VertexArray[MAX];
 	char startVertex[6];
 	char endVertex[6];
@@ -118,9 +118,10 @@ int main(int argc, char *argv[])
 	CreateAdjacencyMatrix(AdjMatrix);
 	readFile(argv, VertexArray, &VertexCount, AdjMatrix);
 	#ifdef PRINTIT
-	for(int i = 0; i < VertexCount; i++)
+	printf("\n");
+	for(i = 0; i < VertexCount; i++)
 	{
-		for(int j = 0; j < VertexCount; j++)
+		for(j = 0; j < VertexCount; j++)
 			printf("%5d\t", AdjMatrix[i][j]);
 		printf("\n");
 	}
@@ -134,7 +135,15 @@ int main(int argc, char *argv[])
 	}
 
 	Dijkstra(startIndex, VertexArray, AdjMatrix, VertexCount);
-
+	#ifdef PRINTIT
+	printf("\n\nI\tL\tD\tP\tV\n");
+	for(i = 0; i < VertexCount; i++)
+	{
+		printf("%d\t%s\t%d\t%d\t%d\n", i, VertexArray[i].label, VertexArray[i].distance, VertexArray.previous, VertexArray[i].visited);
+	}
+	printf("\n");
+	#endif
+	
 	printf("What is the destination vertex?");
 	scanf("%s", endVertex);
 	while(endIndex < VertexCount && endVertex != VertexArray[endIndex]->label)

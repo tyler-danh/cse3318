@@ -103,13 +103,15 @@ void Dijkstra(int StartVertex, Vertex *VertexArray[], int AdjMatrix[][MAX], int 
 				}
 			}
 		}
+		CurrentVertex = SmallestVertexIndex;
+		VertexArray[CurrentVertex]->visited = 1;
 	}
 }
 
 int main(int argc, char *argv[])
 {
 	int AdjMatrix[MAX][MAX];
-	int VertexCount,startIndex,endIndex,pathindex,previndex,i,j = 0;
+	int VertexCount,startIndex = 0,endIndex = 0,pathindex = 0,previndex = 0,i,j = 0;
 	Vertex *VertexArray[MAX];
 	char startVertex[6];
 	char endVertex[6];
@@ -154,6 +156,10 @@ int main(int argc, char *argv[])
 		printf("Path does not exist\n");
 	else
 	{
+		for(i = 0; i < MAX; i++)
+		{
+			path[i] = malloc(sizeof(char) * 6);
+		}
 		pathindex = VertexArray[endIndex]->distance;
 		previndex = VertexArray[endIndex]->previous;
 		path[pathindex] = VertexArray[endIndex]->label;

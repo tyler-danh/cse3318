@@ -77,7 +77,7 @@ void Dijkstra(int StartVertex, Vertex *VertexArray[], int AdjMatrix[][MAX], int 
 	VertexArray[StartVertex]->visited = 1;
 	int x,i,SmallestVertexIndex = 0;
 
-	for (x = 0; x < VertexCount-1; x++)
+	for (x = 0; x < VertexCount; x++)
 	{
 		for(i = 0; i < VertexCount; i++)
 		{
@@ -109,11 +109,11 @@ void Dijkstra(int StartVertex, Vertex *VertexArray[], int AdjMatrix[][MAX], int 
 int main(int argc, char *argv[])
 {
 	int AdjMatrix[MAX][MAX];
-	int VertexCount,startIndex,endIndex,i,j = 0;
+	int VertexCount,startIndex,endIndex,pathindex,previndex,i,j = 0;
 	Vertex *VertexArray[MAX];
 	char startVertex[6];
 	char endVertex[6];
-	char path[6];
+	char *path[MAX];
 
 	CreateAdjacencyMatrix(AdjMatrix);
 	readFile(argv, VertexArray, &VertexCount, AdjMatrix);
@@ -127,9 +127,9 @@ int main(int argc, char *argv[])
 	}
 	#endif
 
-	printf("What is the starting vertex?");
+	printf("What is the starting vertex? ");
 	scanf("%s", startVertex);
-	while(startIndex < VertexCount && startVertex != VertexArray[startIndex]->label)
+	while(startIndex < VertexCount && strcmp(startVertex, VertexArray[startIndex]->label) != 0)
 	{
 		startIndex++;
 	}
@@ -139,23 +139,23 @@ int main(int argc, char *argv[])
 	printf("\n\nI\tL\tD\tP\tV\n");
 	for(i = 0; i < VertexCount; i++)
 	{
-		printf("%d\t%s\t%d\t%d\t%d\n", i, VertexArray[i].label, VertexArray[i].distance, VertexArray.previous, VertexArray[i].visited);
+		printf("%d\t%s\t%d\t%d\t%d\n", i, VertexArray[i]->label, VertexArray[i]->distance, VertexArray[i]->previous, VertexArray[i]->visited);
 	}
 	printf("\n");
 	#endif
 	
-	printf("What is the destination vertex?");
+	printf("What is the destination vertex? ");
 	scanf("%s", endVertex);
-	while(endIndex < VertexCount && endVertex != VertexArray[endIndex]->label)
+	while(endIndex < VertexCount && strcmp(endVertex, VertexArray[endIndex]->label) != 0)
 	{
 		endIndex++;
 	}
 	if(endIndex == VertexCount || startIndex == VertexCount)
-		printf("Path does not exist");
+		printf("Path does not exist\n");
 	else
 	{
-		int pathindex = VertexArray[endIndex]->distance;
-		int previndex = VertexArray[endIndex]->previous;
+		pathindex = VertexArray[endIndex]->distance;
+		previndex = VertexArray[endIndex]->previous;
 		path[pathindex] = VertexArray[endIndex]->label;
 		while (pathindex > 0)
 		{
@@ -163,6 +163,9 @@ int main(int argc, char *argv[])
 			path[pathindex] = VertexArray[previndex]->label;
 			previndex = VertexArray[previndex]->previous;
 		}
-	printf("%s\n", path);
+		printf("%s", path[0]);
+		for(i = 1; i < VertexArray[endIndex]->distance; i++)
+			printf("->%s", path[i]);
+		printf("\n");
 	}
 }

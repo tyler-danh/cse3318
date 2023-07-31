@@ -19,6 +19,8 @@ void addVertex(char *label, Vertex *VertexArray[], int *VertexCount)
 	Vertex *NewVertex = malloc(sizeof(Vertex));
 	strcpy(NewVertex->label, label);
 	NewVertex->visited = 0;
+	NewVertex->distance = INT_MAX;
+	NewVertex->previous = -1;
 	VertexArray[(*VertexCount)++] = NewVertex;
 }
 
@@ -77,7 +79,7 @@ void Dijkstra(int StartVertex, Vertex *VertexArray[], int AdjMatrix[][MAX], int 
 	VertexArray[StartVertex]->visited = 1;
 	int x,i,SmallestVertexIndex = 0;
 
-	for (x = 0; x < VertexCount; x++)
+	for (x = 0; x < VertexCount-1; x++)
 	{
 		for(i = 0; i < VertexCount; i++)
 		{
@@ -135,6 +137,11 @@ int main(int argc, char *argv[])
 	{
 		startIndex++;
 	}
+	if(startIndex == VertexCount)
+	{
+		printf("Not on graph\n");
+		exit(0);
+	}
 
 	Dijkstra(startIndex, VertexArray, AdjMatrix, VertexCount);
 	#ifdef PRINTIT
@@ -166,12 +173,12 @@ int main(int argc, char *argv[])
 		while (pathindex > 0)
 		{
 			pathindex--;
-			path[pathindex] = VertexArray[previndex]->label;
+			strcpy(path[pathindex], VertexArray[previndex]->label);
 			previndex = VertexArray[previndex]->previous;
 		}
-		printf("%s", path[0]);
-		for(i = 1; i < VertexArray[endIndex]->distance; i++)
-			printf("->%s", path[i]);
-		printf("\n");
+		printf("%s", path[pathindex]);
+		for(pathindex = 1; pathindex < VertexArray[endIndex]->distance; pathindex++)
+			printf("->%s", path[pathindex]);
+		printf(" and has a length of %d\n", VertexArray[endIndex]->distance);
 	}
 }

@@ -1,10 +1,17 @@
 #include <stdio.h>
 
-typedef struct
+typedef struct YourStructName
 {
-    /* data */
+char *name;
+float height;
+float weight;
+char gender;
+int age;
+char *grade;
+char *jujutsu;
+struct CursedEnergyUser *next_ptr;
 }
-placeholder;
+CursedEnergyUser;
 
 int MyHashFunction(HashValue)
 {

@@ -4,11 +4,11 @@ typedef struct YourStructName
 {
 char *name;
 float height;
-float weight;
 char gender;
 int age;
 char *grade;
 char *jujutsu;
+char *domain;
 struct CursedEnergyUser *next_ptr;
 }
 CursedEnergyUser;

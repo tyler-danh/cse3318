@@ -1,0 +1,45 @@
+Itadori Yuji|1.73|M|15|Grade 2|Divergent Fist, Black Flash|none
+Megumi Fushigiro|1.75|M|15|Grade 2|Ten Shadows Technique|Chimera Shadow Garden
+Nobara Kugisaki|1.6|F|16|Grade 3|Straw Doll Technique, Black Flash|none
+Satoru Gojo|1.90|M|29|Special Grade|Limitless, Reverse Cursed Technique, Six Eyes|Unlimited Void
+Yuta Okkotsu|1.75|M|17|Special Grade|Vengeful Spirit Rika, Copy, Reverse Cursed Technique|Unnamed Domain
+Maki Zenin|1.70|F|16|Grade 4|Heavenly Restriction|none
+Panda|2.00|M|16|Semi-Grade 2|Cursed Corpse Cores|none
+Toge Inumaki|1.65|M|17|Semi-Grade 1|Cursed Speech|none
+Shoko Ieiri|1.75|F|29|None|Reverse Cursed Technique|none
+Masamichi Yaga|1.8|M|47|Grade 1|Cursed Corpse|none
+Mai Zenin|1.7|F|16|Grade 3|Construction|none
+Kasumi Miwa|1.6|F|17|Grade 3|New Shadow Style, Batto Sword Drawing|New Shadow Style: Simple Domain
+Noritoshi Kamo|1.74|M|18|Semi-Grade 1|Blood Manipulation|none
+Aoi Todo|1.90|M|18|Grade 1|Boogie Woogie, Black Flash|Simple Domain
+Kento Nanami|1.84|M|28|Grade 1|Ratio Technique, Black Flash|none
+Yuki Tsukumo|1.76|F|40|Special Grade|Star Rage, Reverse Cursed Technique|Unnamed Domain
+Mei Mei|1.80|F|35|Grade 1|Black Bird Manipulation|none
+Atsuya Kusakabe|1.80|M|40|Grade 1|Evening Moon Sword Drawing, Batto Sword Drawing|none
+Utahime Iori|1.70|F|31|Semi-Grade 1|Solo Forbidden Area|none
+Sukuna|1.75|M|1000|Special Grade|Unknown, Reverse Cursed Technique|Melevolent Shrine
+Toji Fushiguro|1.90|M|None|Heavenly Restriction|none
+Naobito Zenin|1.84|M|71|Special Grade 1|Projection Sorcery|none
+Naoya Zenin|1.50|M|27|Special Grade 1|Projection Sorcery|none
+Hajime Kashimo|1.60|M|400|None|Lightning Discharge|Unnamed Domain
+Suguru Geto|1.80|M|27|Special Grade|Cursed Spirit Manipulation|none
+Yoshinobu Gakuganji|1.56|M|76|Grade 1|Sound Amplification Technique|none
+Kokichi Muta|1.60|M|17|Semi-Grade 1|Puppet Manipulation|none
+Mahito|1.70|M|20|Special Grade|Idle Transfiguration|Self-Embodiment of Perfection
+Jogo|0.87|M|1000|Special Grade|Disaster Flames, Ember Insects|Coffin of the Iron Mountain
+Choso|1.73|M|150|Special Grade|Blood Manipulation|none
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+//Tyler Danh 1001706320
+typedef struct YourStructName
+{
+    char *name;
+    float height;
+    char gender;
+    int age;
+    char *grade;
+    char *jujutsu;
+    char *domain;
+    struct CursedEnergyUser *next_ptr;
+}
+CursedEnergyUser;

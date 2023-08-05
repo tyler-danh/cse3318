@@ -18,7 +18,7 @@ Mei Mei|1.80|F|35|Grade 1|Black Bird Manipulation|none
 Atsuya Kusakabe|1.80|M|40|Grade 1|Evening Moon Sword Drawing, Batto Sword Drawing|none
 Utahime Iori|1.70|F|31|Semi-Grade 1|Solo Forbidden Area|none
 Sukuna|1.75|M|1000|Special Grade|Unknown, Reverse Cursed Technique|Melevolent Shrine
-Toji Fushiguro|1.90|M|None|Heavenly Restriction|none
+Toji Fushiguro|1.90|M|27|None|Heavenly Restriction|none
 Naobito Zenin|1.84|M|71|Special Grade 1|Projection Sorcery|none
 Naoya Zenin|1.50|M|27|Special Grade 1|Projection Sorcery|none
 Hajime Kashimo|1.60|M|400|None|Lightning Discharge|Unnamed Domain

@@ -15,9 +15,9 @@ int MyHashFunction(char HashValue[])
 
 int main(void)
 {
-    char HashValue[20];
+    char HashValue[50];
     printf("Enter value ");
-    scanf("%s", HashValue);
+    fgets(HashValue, sizeof(HashValue), stdin);
     printf("The hash value for %s is %d\n", HashValue, MyHashFunction(HashValue));
     return 0;
 }

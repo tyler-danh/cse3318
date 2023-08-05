@@ -1,5 +1,5 @@
 //Tyler Danh 1001706320
-typedef struct YourStructName
+typedef struct cursedenergyuser
 {
     char *name;
     float height;

@@ -7,7 +7,7 @@ int MyHashFunction(char HashValue[])
     int i,j = 0;
     while(HashValue[i] != '\0')
     {
-        j += (int)HashValue[i];
+        j += HashValue[i];
         i++;
     }
     return j % HASHTABLESIZE;

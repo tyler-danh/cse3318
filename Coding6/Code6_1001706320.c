@@ -1,4 +1,4 @@
-// Coding Assignment 6 - Donna French - 100074079
+// Coding Assignment 6 - Tyler Danh - 1001706320
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,22 +6,21 @@
 #include <ctype.h>
 #include <time.h>
  
-#define HASHTABLESIZE 37
+#define HASHTABLESIZE 10
  
 /* Node for storing information */
-typedef struct Pokemon 
+typedef struct cursedenergyuser
 {
-	char *name;
-	float height;
-	float weight;
-	char gender;
-	char *category;
-	char *abilities;
-	int evolution;
-	int national_pokedex_number;
-	struct Pokemon *next_ptr;
+    char *name;
+    float height;
+    char gender;
+    int age;
+    char *grade;
+    char *jujutsu;
+    char *domain;
+    struct cursedenergyuser *next_ptr;
 }
-POKEMON;
+CursedEnergyUser;
  
 /* This function creates an index corresponding to the input key */
 int CalculateHashIndex(char *key)
@@ -36,21 +35,21 @@ int CalculateHashIndex(char *key)
 	return HashIndex %= HASHTABLESIZE; 
 }
 
-void AddNode(POKEMON *NewNode, POKEMON *Pokedex[])
+void AddNode(CursedEnergyUser *NewNode, CursedEnergyUser *SorcererIndex[])
 {
 	int HashIndex = CalculateHashIndex(NewNode->name);
 	
 	/* a linked list does not exist for this cell of the array */
-	if (Pokedex[HashIndex] == NULL) 
+	if (SorcererIndex[HashIndex] == NULL) 
 	{
 		#if PRINTINSERT
 		printf("\nInserting %s at index %d\n", NewNode->name, HashIndex);
 		#endif
-		Pokedex[HashIndex] = NewNode;
+		SorcererIndex[HashIndex] = NewNode;
 	}
 	else   /* A Linked List is present at given index of Hash Table */ 
 	{
-		POKEMON *TempPtr = Pokedex[HashIndex];
+		CursedEnergyUser *TempPtr = SorcererIndex[HashIndex];
 	
 		/* Traverse linked list */
 		while (TempPtr->next_ptr != NULL) 
@@ -64,21 +63,22 @@ void AddNode(POKEMON *NewNode, POKEMON *Pokedex[])
 	}
 }
 
-void FreeDynamicMemory(POKEMON *Pokedex[])
+void FreeDynamicMemory(CursedEnergyUser *SorcererIndex[])
 {
-	POKEMON *TempPtr = NULL, *NextPtr = NULL;
+	CursedEnergyUser *TempPtr = NULL, *NextPtr = NULL;
 	
 	for (int i = 0; i < HASHTABLESIZE; i++)
 	{
-		TempPtr = Pokedex[i];
+		TempPtr = SorcererIndex[i];
  
 		if (TempPtr != NULL) 
 		{
 			while (TempPtr != NULL) 
 			{
 				free(TempPtr->name);
-				free(TempPtr->category);
-				free(TempPtr->abilities);
+				free(TempPtr->grade);
+				free(TempPtr->jujutsu);
+				free(TempPtr->domain);
 				NextPtr = TempPtr->next_ptr;
 				free(TempPtr);
 				TempPtr = NextPtr;
@@ -89,24 +89,24 @@ void FreeDynamicMemory(POKEMON *Pokedex[])
 
 
 /* Remove an element from Hash Table */ 
-int DeleteNode(POKEMON *Pokedex[])
+int DeleteNode(CursedEnergyUser *SorcererIndex[])
 {
 	char LookupName[100] = {};
 	int result = 0;
 	
-	printf("Enter the name of the Pokemon to delete from the Pokedex ");
-	scanf("%s", LookupName);
+	printf("Enter the name of the sorcerer to delete from the Sorcerer Index ");
+	fgets(LookupName, sizeof(LookupName), stdin);
 
 	int HashIndex = CalculateHashIndex(LookupName);
 
 	/* Get linked list at key in array */
-	POKEMON *TempPtr = Pokedex[HashIndex];
-	POKEMON *PrevPtr = NULL;
+	CursedEnergyUser *TempPtr = SorcererIndex[HashIndex];
+	CursedEnergyUser *PrevPtr = NULL;
  
 	/* This array index does not have a linked list; therefore, no keys */
 	if (TempPtr == NULL) 
 	{
-		printf("\n\nPokemon %s does not exist in the Pokedex\n\n", LookupName);
+		printf("\n\nSorcerer %s does not exist in the Sorcerer Index\n\n", LookupName);
 		result = 0;
 	}
 	else 
@@ -116,11 +116,11 @@ int DeleteNode(POKEMON *Pokedex[])
 			if (strcmp(TempPtr->name, LookupName) == 0)
 			{
 				/* If the node being deleted is the head node */
-				if (TempPtr == Pokedex[HashIndex])
+				if (TempPtr == SorcererIndex[HashIndex])
 				{
 					/* The node the head was pointing at is now the head */
-					Pokedex[HashIndex] = TempPtr->next_ptr;
-					printf("\nPokemon %s has been deleted from the Pokedex\n\n", TempPtr->name);
+					SorcererIndex[HashIndex] = TempPtr->next_ptr;
+					printf("\nSorcerer %s has been deleted from the Sorcerer Index\n\n", TempPtr->name);
 					free(TempPtr);
 					TempPtr = NULL;
 				}
@@ -128,7 +128,7 @@ int DeleteNode(POKEMON *Pokedex[])
 				else
 				{
 					PrevPtr->next_ptr = TempPtr->next_ptr;
-					printf("\nPokemon %s has been deleted from the Pokedex\n\n", TempPtr->name);
+					printf("\nSorcerer %s has been deleted from the Sorcerer Index\n\n", TempPtr->name);
 					free(TempPtr);
 					TempPtr = NULL;
 				}
@@ -144,23 +144,23 @@ int DeleteNode(POKEMON *Pokedex[])
 		}
 		if (result == 0)
 		{
-			printf("\n\nPokemon %s does not exist in the Pokedex\n\n", LookupName);
+			printf("\n\nSorcerer %s does not exist in the Sorcerer Index\n\n", LookupName);
 		}
 	}
 	return result;
 }
 
 /* display the contents of the Hash Table */
-void DisplayHashTable(POKEMON *Pokedex[])
+void DisplayHashTable(CursedEnergyUser *SorcererIndex[])
 {
 	int i;
-	POKEMON *TempPtr = NULL;
+	CursedEnergyUser *TempPtr = NULL;
 	
 	for (i = 0; i < HASHTABLESIZE; i++) 
 	{
-		TempPtr = Pokedex[i];
+		TempPtr = SorcererIndex[i];
 
-		printf("\nPokedex[%d]-", i);
+		printf("\nSorcererIndex[%d]-", i);
 		
 		if (TempPtr != NULL) 
         {
@@ -173,10 +173,10 @@ void DisplayHashTable(POKEMON *Pokedex[])
 	}
 }
 
-void ShowByLetter(POKEMON *Pokedex[])
+void ShowByLetter(CursedEnergyUser *SorcererIndex[])
 {
 	int i;
-	POKEMON *TempPtr = NULL;
+	CursedEnergyUser *TempPtr = NULL;
 	char LookupLetter = 'A';
 
 	printf("\n\nEnter a letter of the alphabet ");
@@ -185,7 +185,7 @@ void ShowByLetter(POKEMON *Pokedex[])
 
 	for (i = 0; i < HASHTABLESIZE; i++) 
 	{
-		TempPtr = Pokedex[i];
+		TempPtr = SorcererIndex[i];
 
 		if (TempPtr != NULL) 
 		{
@@ -201,17 +201,17 @@ void ShowByLetter(POKEMON *Pokedex[])
 	}
 }
 
-void ShowByName(POKEMON *Pokedex[])
+void ShowByName(CursedEnergyUser *SorcererIndex[])
 {
-	POKEMON *TempPtr = NULL;
+	CursedEnergyUser *TempPtr = NULL;
 	char height[10] = {};
-	char feet[10] = {};
-	char inches[10] = {};
+	char meters[10] = {};
+	char centimeters[10] = {};
 	char LookupName[100] = {};
 	int FoundIt = 0;
 	
-	printf("\n\nEnter Pokemon's name ");
-	scanf("%s", LookupName);
+	printf("\n\nEnter sorcerer's name ");
+	fgets(LookupName, sizeof(LookupName), stdin);
 	
 	#if TIMING
 	clock_t start, end;
@@ -219,7 +219,7 @@ void ShowByName(POKEMON *Pokedex[])
 	#endif
 	for (int i = 0; i < HASHTABLESIZE; i++) 
 	{
-		TempPtr = Pokedex[i];
+		TempPtr = SorcererIndex[i];
 
 		if (TempPtr != NULL) 
 		{
@@ -249,17 +249,14 @@ void ShowByName(POKEMON *Pokedex[])
 						}
 					}
 					printf("\"\n");
-					printf("Weight\t\t%.1f lbs\n", TempPtr->weight);
-					if (TempPtr->gender == 'B')
-						printf("Gender\t\tM F\n");
-					else if (TempPtr->gender == 'U')
-						printf("Genger\t\tUnknown\n");
-					else
-						printf("Gender\t\t%c\n", TempPtr->gender);
-					printf("Category\t%s\n", TempPtr->category);
-					printf("Abilities\t%s\n", TempPtr->abilities);
-					printf("Evolution\t%d\n", TempPtr->evolution);
-					printf("Natl Pokedex #\t%d\n", TempPtr->national_pokedex_number);
+					if (TempPtr->gender == 'M')
+						printf("Gender\t\tMale\n");
+					else if(TempPtr->gender == 'F')
+						printf("Gender\t\tFemale\n");
+					printf("Age\t%d\n", TempPtr->age);
+					printf("Grade\t%s\n", TempPtr->grade);
+					printf("Techniques\t%s\n", TempPtr->jujutsu);
+					printf("Domain Name\t%s\n", TempPtr->domain);
 
 				}
 				TempPtr = TempPtr->next_ptr;
@@ -268,28 +265,26 @@ void ShowByName(POKEMON *Pokedex[])
 	}
 	
 	if (FoundIt == 0)
-		printf("\n\nPokemon %s not found in Pokedex\n\n", LookupName);
+		printf("\n\nSorcerer %s not found in Sorcerer Index\n\n", LookupName);
 }
 
-void AddNewPokemon(POKEMON *Pokedex[])
+void AddNewSorcerer(CursedEnergyUser *SorcererIndex[])
 {
 	int HashIndex = 0;
-	POKEMON *NewNode;
-	char TempBuffer[100] = {};
+	CursedEnergyUser *NewNode;
+	char TempBuffer[150] = {};
 
-	NewNode = malloc(sizeof(POKEMON));
+	NewNode = malloc(sizeof(CursedEnergyUser));
 	NewNode->next_ptr = NULL;
 
-	printf("\n\nEnter new Pokemon's name ");
-	scanf("%s", TempBuffer);
+	printf("\n\nEnter new sorcerer's name ");
+	fgets(TempBuffer, sizeof(TempBuffer)-1, stdin);
+	TempBuffer[strlen(TempBuffer)-1] = '\0';
 	NewNode->name = malloc(strlen(TempBuffer)*sizeof(char)+1);
 	strcpy(NewNode->name, TempBuffer);
 
-	printf("\n\nEnter %s's height as feet.inches ", NewNode->name);
+	printf("\n\nEnter %s's height as meters.centimeters ", NewNode->name);
 	scanf("%f", &(NewNode->height));
-	
-	printf("\n\nEnter %s's weight as pounds.ounces ", NewNode->name);
-	scanf("%f", &(NewNode->weight));
 	
 	printf("\n\nEnter %s's possible gender (M/F/B/U) ", NewNode->name);
 	scanf(" %c", &(NewNode->gender));
@@ -297,36 +292,39 @@ void AddNewPokemon(POKEMON *Pokedex[])
 	
 	// Extra fgets to clear stdin
 	fgets(TempBuffer, sizeof(TempBuffer)-1, stdin);
+
+	printf("\n\nEnter %s's age ", NewNode->name);
+	scanf("%d", &(NewNode->age));
 	
-	printf("\n\nEnter %s's category ", NewNode->name);
+	printf("\n\nEnter %s's grade ", NewNode->name);
 	fgets(TempBuffer, sizeof(TempBuffer)-1, stdin); 
 	TempBuffer[strlen(TempBuffer)-1] = '\0';
-	NewNode->category = malloc(strlen(TempBuffer)*sizeof(char)+1);
-	strcpy(NewNode->category, TempBuffer);
+	NewNode->grade = malloc(strlen(TempBuffer)*sizeof(char)+1);
+	strcpy(NewNode->grade, TempBuffer);
 
-	printf("\n\nEnter %s's abilities ", NewNode->name);
+	printf("\n\nEnter %s's techniques ", NewNode->name);
 	fgets(TempBuffer, sizeof(TempBuffer)-1, stdin);
 	TempBuffer[strlen(TempBuffer)-1] = '\0';	
-	NewNode->abilities = malloc(strlen(TempBuffer)*sizeof(char)+1);
-	strcpy(NewNode->abilities, TempBuffer);
+	NewNode->jujutsu = malloc(strlen(TempBuffer)*sizeof(char)+1);
+	strcpy(NewNode->jujutsu, TempBuffer);
 
-	printf("\n\nEnter %s's evolution ", NewNode->name);
-	scanf("%d", &(NewNode->evolution));
+	printf("\n\nEnter %s's domain name (enter none if they do not have one) ", NewNode->name);
+	fgets(TempBuffer, sizeof(TempBuffer)-1, stdin);
+	TempBuffer[strlen(TempBuffer)-1] = '\0';
+	NewNode->domain = malloc(strlen(TempBuffer)*sizeof(char)+1);
+	strcpy(NewNode->domain, TempBuffer);
 
-	printf("\n\nEnter %s's National Pokedex Number ", NewNode->name);
-	scanf("%d", &(NewNode->national_pokedex_number));
-
-	AddNode(NewNode, Pokedex);
+	AddNode(NewNode, SorcererIndex);
 }
 
-int ReadFileIntoHashTable(int argc, char *argv[], POKEMON *Pokedex[])
+int ReadFileIntoHashTable(int argc, char *argv[], CursedEnergyUser *SorcererIndex[])
 {
 	FILE *FH = NULL;
-	char FileLine[100] = {};
+	char FileLine[150] = {};
 	char *token = NULL;
 	int counter = 0;
 	int HashIndex = 0;
-	POKEMON *NewNode;
+	CursedEnergyUser *NewNode;
 
 	if (argc > 1)
 	{
@@ -341,8 +339,10 @@ int ReadFileIntoHashTable(int argc, char *argv[], POKEMON *Pokedex[])
 		while (fgets(FileLine, sizeof(FileLine)-1, FH))
 		{
 			token = strtok(FileLine, "|");
+			FileLine[strcspn(FileLine, "\n")] = '\0';
 
-			NewNode = malloc(sizeof(POKEMON));
+			
+			NewNode = malloc(sizeof(CursedEnergyUser));
 			NewNode->next_ptr = NULL;
 			
 			NewNode->name = malloc(strlen(token)*sizeof(char)+1);
@@ -352,26 +352,24 @@ int ReadFileIntoHashTable(int argc, char *argv[], POKEMON *Pokedex[])
 			NewNode->height = atof(token);
 			
 			token = strtok(NULL, "|");
-			NewNode->weight = atof(token);
-			
-			token = strtok(NULL, "|");
 			NewNode->gender = *token;
+
+			token = strtok(NULL, "|");
+			NewNode->age = atoi(token);
+
+			token = strtok(NULL, "|");
+			NewNode->grade = malloc(strlen(token)*sizeof(char)+1);
+			strcpy(NewNode->grade, token);
 			
 			token = strtok(NULL, "|");
-			NewNode->category = malloc(strlen(token)*sizeof(char)+1);
-			strcpy(NewNode->category, token);
+			NewNode->jujutsu = malloc(strlen(token)*sizeof(char)+1);
+			strcpy(NewNode->jujutsu, token);
 
 			token = strtok(NULL, "|");
-			NewNode->abilities = malloc(strlen(token)*sizeof(char)+1);
-			strcpy(NewNode->abilities, token);
+			NewNode->domain = malloc(strlen(token)*sizeof(char)+1);
+			strcpy(NewNode->domain, token);
 
-			token = strtok(NULL, "|");
-			NewNode->evolution = atoi(token);
-			
-			token = strtok(NULL, "|");
-			NewNode->national_pokedex_number = atoi(token);
-
-			AddNode(NewNode, Pokedex);
+			AddNode(NewNode, SorcererIndex);
 
 			counter++;
 		}
@@ -392,21 +390,21 @@ int main(int argc, char *argv[])
 {
 	int MenuChoice = 0;
 	int counter = 0;
-	POKEMON *Pokedex[HASHTABLESIZE] = {};
+	CursedEnergyUser *SorcererIndex[HASHTABLESIZE] = {};
 
 	enum Menu {SHOWBYLETTER=1, SHOWBYNAME, COUNT, DISPLAY, ADD, DELETE, EXIT};
  
-	counter = ReadFileIntoHashTable(argc, argv, Pokedex);
+	counter = ReadFileIntoHashTable(argc, argv, SorcererIndex);
  
 	do
 	{
-		printf("\n\nPokedex Menu\n\n"
-			   "1. Show all Pokemon in Pokedex for a given letter\n"
-			   "2. Look up Pokemon by name\n"
-			   "3. How many Pokemon are in the Pokedex?\n"
-			   "4. Display the Pokedex\n"
-			   "5. Add a new Pokemon\n"
-			   "6. Delete a Pokemon from the Pokedex\n"
+		printf("\n\nSorcerer Index Menu\n\n"
+			   "1. Show all sorcerers in Sorcerer Index for a given letter\n"
+			   "2. Look up sorcerer by name\n"
+			   "3. How many sorcerers are in the Sorcerer Index?\n"
+			   "4. Display the Sorcerer Index\n"
+			   "5. Add a new sorcerer\n"
+			   "6. Delete a sorcerer from the Sorcerer Index\n"
 			   "7. Exit\n\n"
 			   "Enter menu choice ");
 	
@@ -416,23 +414,23 @@ int main(int argc, char *argv[])
 		switch (MenuChoice)
 		{	
 			case SHOWBYLETTER:
-				ShowByLetter(Pokedex);
+				ShowByLetter(SorcererIndex);
 				break;
 			case SHOWBYNAME:
-				ShowByName(Pokedex);
+				ShowByName(SorcererIndex);
 				break;
 			case COUNT:
-				printf("Your Pokedex contains %d Pokemon\n", counter); 
+				printf("Your Sorcerer Index contains %d sorcerers\n", counter); 
 				break;
  			case DISPLAY:
-				DisplayHashTable(Pokedex);
+				DisplayHashTable(SorcererIndex);
 				break;
 			case ADD:
-				AddNewPokemon(Pokedex);
+				AddNewSorcerer(SorcererIndex);
 				counter++;
 				break;
 			case DELETE:
-				if (DeleteNode(Pokedex))
+				if (DeleteNode(SorcererIndex))
 				{
 					counter--;
 				}
@@ -445,7 +443,7 @@ int main(int argc, char *argv[])
 	}
 	while (MenuChoice != EXIT);
 	
-	FreeDynamicMemory(Pokedex);
+	FreeDynamicMemory(SorcererIndex);
 
 	return 0;
 }			  

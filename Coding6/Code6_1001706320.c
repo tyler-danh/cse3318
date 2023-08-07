@@ -6,7 +6,7 @@
 #include <ctype.h>
 #include <time.h>
  
-#define HASHTABLESIZE 10
+#define HASHTABLESIZE 1
  
 /* Node for storing information */
 typedef struct cursedenergyuser
@@ -25,14 +25,13 @@ CursedEnergyUser;
 /* This function creates an index corresponding to the input key */
 int CalculateHashIndex(char *key)
 {
-	int HashIndex = 0;
-	
-	for (int i = 0; i < strlen(key); i++)
-	{
-		HashIndex += key[i];
-	}
-	
-	return HashIndex %= HASHTABLESIZE; 
+	int i,j = 0;
+    while(key[i] != '\0')
+    {
+        j += key[i];
+        i++;
+    }
+    return j % HASHTABLESIZE; 
 }
 
 void AddNode(CursedEnergyUser *NewNode, CursedEnergyUser *SorcererIndex[])

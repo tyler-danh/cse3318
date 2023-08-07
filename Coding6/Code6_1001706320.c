@@ -96,6 +96,7 @@ int DeleteNode(CursedEnergyUser *SorcererIndex[])
 	
 	printf("Enter the name of the sorcerer to delete from the Sorcerer Index ");
 	fgets(LookupName, sizeof(LookupName), stdin);
+	LookupName[strlen(LookupName)-1] = '\0';
 
 	int HashIndex = CalculateHashIndex(LookupName);
 
@@ -212,12 +213,14 @@ void ShowByName(CursedEnergyUser *SorcererIndex[])
 	
 	printf("\n\nEnter sorcerer's name ");
 	fgets(LookupName, sizeof(LookupName), stdin);
+	LookupName[strlen(LookupName)-1] = '\0';
+	
 	
 	#if TIMING
 	clock_t start, end;
 	start = clock();
 	#endif
-	for (int i = 0; i < HASHTABLESIZE; i++) 
+	for (int i = 0; i < HASHTABLESIZE; i++)
 	{
 		TempPtr = SorcererIndex[i];
 
@@ -237,24 +240,14 @@ void ShowByName(CursedEnergyUser *SorcererIndex[])
 					
 					printf("Height\t\t");
 					sprintf(height, "%.2f", TempPtr->height);
-					for (int i = 0; i < strlen(height); i++)
-					{
-						if (height[i] == '.')
-						{
-							printf("\' ");
-						}
-						else
-						{
-							printf("%c", height[i]);
-						}
-					}
-					printf("\"\n");
+					printf("%.2f meters", TempPtr->height);
+					printf("\n");
 					if (TempPtr->gender == 'M')
 						printf("Gender\t\tMale\n");
 					else if(TempPtr->gender == 'F')
 						printf("Gender\t\tFemale\n");
-					printf("Age\t%d\n", TempPtr->age);
-					printf("Grade\t%s\n", TempPtr->grade);
+					printf("Age\t\t%d\n", TempPtr->age);
+					printf("Grade\t\t%s\n", TempPtr->grade);
 					printf("Techniques\t%s\n", TempPtr->jujutsu);
 					printf("Domain Name\t%s\n", TempPtr->domain);
 
@@ -295,6 +288,7 @@ void AddNewSorcerer(CursedEnergyUser *SorcererIndex[])
 
 	printf("\n\nEnter %s's age ", NewNode->name);
 	scanf("%d", &(NewNode->age));
+	getchar();
 	
 	printf("\n\nEnter %s's grade ", NewNode->name);
 	fgets(TempBuffer, sizeof(TempBuffer)-1, stdin); 
@@ -409,6 +403,7 @@ int main(int argc, char *argv[])
 			   "Enter menu choice ");
 	
 		scanf("%d", &MenuChoice);
+		getchar();
 		printf("\n\n");
 
 		switch (MenuChoice)
